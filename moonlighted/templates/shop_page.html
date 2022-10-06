@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}
+    商品页面
+{% endblock %}
+
+{% block content %}
+    <div>
+        <img class="tp"  
+        src="{{ shop.avatar }}" id="avatar">
+    </div>
+    <h3 class="ql">介绍：{{ shop.content |safe }}</h3>
+    <strong  class="ql">联系方式：{{ shop.contact }}</strong>
+{% endblock %}

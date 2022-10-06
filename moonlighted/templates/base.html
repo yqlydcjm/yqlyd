@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {{title | default}} {% endblock %}</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/base.css" rel="stylesheet">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/lx.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body background="/static/img/1001.jpeg">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">钟点</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="{{url_for('zy')}}" class="navigation"><img class="icon" src="/static/img/商业化全球.png">主页</a></li>
+          <li><a href="{{url_for('blog_sy')}}" class="navigation"><img class="icon" src="/static/img/底层架构.png">博客</a></li>
+          <li><a href="{{url_for('shop')}}" class="navigation"><img class="icon" src="/static/img/卖家购物车.png">购物</a></li>
+          <li><a href="{{url_for('school')}}" class="navigation"><img class="icon" src="/static/img/全球跨境.png">学校</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" id="right">
+          {% if um %}
+              <li class="dropdown">
+                <!-- <img class="media-object" style="width:40px;height:40px;" src="{{ um.avatar }}"> -->
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" class="navigation"
+                    aria-expanded="false">{{ um.username }} <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ url_for('user_detail',user_id=um.id) }}" class="navigation">个人资料 </a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{{ url_for('base_logout') }}" class="navigation">退出 </a></li>
+                </ul>
+              </li>
+          {% else %}
+              <li><a href="{{ url_for('dl') }}" class="navigation">登录</a></li>
+              <li><a href="{{ url_for('zc') }}" class="navigation">注册</a></li>
+          {% endif %}
+      </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  {% block content %}
+
+  {% endblock %}
+</body>
+</html>

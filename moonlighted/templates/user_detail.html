@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}
+    个人资料
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% if email.avatar %}
+            <img style="width:150px;height:150px;" src="{{ email.avatar }}">
+        {% else %}
+            <img style="width:150px;height:150px;" src="/static/avatar/code.png">
+        {% endif %}
+        <p><a class="btn btn-default" href="{{ url_for('edit_avatar',email_id=email.id) }}">编辑个人头像</a></p>
+        <hr>
+        <ul class="list-group">
+            <li class="list-group-item" style="color: black;">用户名：<strong style="color: black;">{{ email.username }}</strong></li>
+            <li class="list-group-item" style="color: black;">邮箱：<strong style="color: black;">{{ email.email }}</strong></li>
+            <li class="list-group-item" style="color: black;">地址：<strong style="color: black;">{{ email.address }}</strong></li>
+            <li class="list-group-item" style="color: black;">个人简介：<strong style="color: black;">{{ email.info }}</strong></li>
+        </ul>
+        -->
+        {% if um %}
+            {% if um.id == email.id %} 
+                <a class="btn btn-default" href="{{ url_for('edit_info', email_id=email.id) }}">编辑个人资料</a>
+            {% endif %}
+        {% endif %}
+        <br>
+        <ul>
+            <!-- 标签 -->
+            <div>
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">博客</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">群聊消息</a></li>
+                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">购物</a></li>
+                </ul>
+                
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <!-- 博客 -->
+                    <div role="tabpanel" class="tab-pane fade in active" id="home">
+                        {% for blog in blog %}
+                            <p id="ql"><a href="{{ url_for('blog_page',page_id=blog.id) }}">{{ blog.content|safe }}</a></p>
+                            <span class="label label-primary" id="ql">时间：{{ blog.create_time }}</span>
+                            <span class="label label-primary" id="ql">科目：{{ blog.gender }}</span>
+                            <span class="label label-primary" id="ql">作者: 😀你猜</span>
+                            {% if um %}
+                                {% if um.id == email.id or '管理员' %}
+                                    <a href="{{url_for('delete_blog',blog_id=blog.id)}}" class="btn btn-warning">删除</a>
+                                {% endif %}
+                            {% endif %}
+                            <hr>
+                        {% endfor %}
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="messages">
+                        {% for shop in shop %}
+                            <li>
+                                <h4><a href="{{ url_for('shop_page',shop_id=shop.id) }}">{{ shop.title }}</a></h4>
+                                <p>{{ shop.content|safe }}</p>
+                                <span class="label label-primary">时间：{{ shop.create_time }}</span>
+                                {% if um %}
+                                    {% if um.id == email.id or '管理员' %}
+                                        <a href="{{url_for('delete_shop',shop_id=shop.id)}}" class="btn btn-warning">删除</a>
+                                    {% endif %}
+                                {% endif %}
+                            </li>
+                            <hr>
+                        {% endfor %}
+                    </div>
+
+                </div>
+                
+            </div>
+
+        </ul>
+    </div>
+{% endblock %}

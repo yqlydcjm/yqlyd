@@ -1,0 +1,51 @@
+{% extends 'blog.html' %}
+{% block title %}
+    博客_首页
+{% endblock %}
+
+{% block content %}
+    <!-- 题目 -->
+    <div>
+        <div class="container">
+            <div class="page-header" style="text-align:center">
+                <h1>博客<small>
+                    <a href="{{url_for('blog_publish')}}">
+                        <button class="but">发布博客</button>
+                    </a>
+                </small></h1>
+            </div>
+                <div id="scroll_div" class="gun">
+                    {% for ab in ab %}
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="{{ url_for('user_detail', user_id=ab.author.id) }}">
+                                    {% if ab.author.avatar %}
+                                        <img class="media-object"
+                                        style="width:40px;height:40px;" src="{{ ab.author.avatar }}"
+                                            alt="...">
+                                    {% else %}
+                                        <img class="media-object"
+                                        style="width:40px;height:40px;" src="/static/avatar/code.png"
+                                            alt="...">
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h5 class="label label-primary">作者：{{ ab.author.username }}
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时间：{{ ab.create_time }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </h5>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title"><a href="{{ url_for('blog_page',page_id=ab.id) }}" class="ql">题目：{{ ab.commodity }}</a></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        内容：{{ ab.commodity|safe }}
+                                    </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <hr> 
+                    {% endfor %}
+            </div>
+
+{% endblock %}

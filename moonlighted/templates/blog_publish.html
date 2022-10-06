@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+    发布文章
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="page-header">
+            <h1>上传文章</h1>
+        </div>
+        <form method="post" style="background-color: rgb(255, 255, 255);">
+            <div class="form-group">
+                {{ form.commodity.label }} {{ form.commodity(class="form-control", placeholder="请输入题目") }}
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <p style="color: rgb(0, 0, 0);">请输入内容</p>
+                    <div id="editor" style="color: black;"></div>
+                    <textarea style="display: none" name="content" id="content"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form.gender.label }} {{ form.gender(class="form-control") }}
+            </div>
+            </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+            <div class="form-group">
+                {{ form.submit( class="btn btn-default") }}
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/wangEditor/3.1.1/wangEditor.min.js"></script>
+
+    <script type="text/javascript">
+        var E = window.wangEditor
+        var editor = new E('#editor')
+        var $text1 = $('#content');
+        editor.customConfig.onchange = function (html) {
+            $text1.val(html);
+        }
+        editor.customConfig.uploadImgShowBase64 = true// 使用 base64 保存图片
+        // editor.customConfig.uploadImgServer = '/upload'  // 上传图片到服务器
+        editor.create()
+        // $text1.val(editor.txt.html());// 初始化 textarea 的值
+    </script>
+{% endblock %}
+

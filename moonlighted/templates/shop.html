@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}
+    购物
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="page-header">
+            <h1 class="white">购物
+                <small class="white">请合法购物</small>
+            </h1>
+            <a href="{{url_for('shop_publish')}}">
+                <button class="blog">发布商品</button>
+            </a>
+        </div>
+    </div>
+    <div class="write">
+        <div class="container">
+            <ul>
+
+                <div id="scroll_div" style="overflow-y:auto; width: 50%;float: rlght;">
+                    <b><a href="{{url_for('blog_sy')}}" class="navigation"><img class="icon" src="/static/img/卖家购物车.png">购物</a></b>
+                    <div id="scroll_div" class="gun">
+                        {% for ab in shops %}
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="{{ url_for('user_detail', user_id=ab.id) }}">
+                                        {% if ab.avatar %}
+                                            <img class="media-object"
+                                            style="width:40px;height:40px;" src="{{ ab.avatar }}"
+                                                alt="...">
+                                        {% else %}
+                                            <img class="media-object"
+                                            style="width:40px;height:40px;" src="/static/avatar/code.png"
+                                                alt="...">
+                                        {% endif %}
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="label label-primary">作者：{{ ab.author.username }}
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时间：{{ ab.create_time }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </h5>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"><a href="{{ url_for('blog_page',page_id=ab.id) }}" class="ql">题目：{{ ab.commodity }}</a></h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            内容：{{ ab.commodity|safe }}
+                                        </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                </div>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
